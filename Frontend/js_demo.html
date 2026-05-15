@@ -2,31 +2,76 @@
 <head></head>
 
 <body>
+
     <h1 id="demo">This is some text.</h1>
+
+    <!-- Change Text Button -->
     <button onclick="changeText()">
-    <input type = "button" onclick = "GetCords()" value = "Say Hello" id="button"/>    
-      Change Text
-      </button>
+        Change Text
+    </button>
+
+    <br><br>
+
+    <!-- Say Hello Button -->
+    <input type="button" onclick="sayHello()" value="Say Hello" id="button"/>
+
+    <br><br>
+
+    <!-- Input Box -->
+    <input type="text" onkeydown="customizeInput()">
+
+    <br><br>
+
+    <!-- New Button -->
+    <button id="btn">Click Me</button>
 
     <script>
+
+        // Change heading text
         function changeText() {
             let element = document.getElementById("demo");
             element.textContent = "Text changed by JavaScript!";
         }
 
+        // Say Hello function
+        function sayHello() {
+            alert("Hello!");
+        }
+
+        // Mouse coordinates for Say Hello button
         const button = document.querySelector('#button');
-         button.addEventListener("click", function(event) {
-            // Get mouse coordinates
+
+        button.addEventListener("click", function(event) {
+
             const x = event.clientX;
             const y = event.clientY;
 
-            // Show alert box
             alert(`Button clicked at X: ${x}, Y: ${y}`);
 
         });
 
-      
+
+        function customizeInput() {
+
+            var ele = document.getElementsByTagName("INPUT")[1];
+
+            ele.style.backgroundColor = "yellow";
+            ele.style.color = "red";
+        }
+
+        // New button event listeners
+        const button1 = document.getElementById("btn");
+
+        button1.addEventListener("click", function () {
+            console.log("First");
+        });
+
+        button1.addEventListener("click", function () {
+            console.log("Second");
+        });
+
     </script>
+
 </body>
 
 </html>
