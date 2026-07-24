@@ -1,0 +1,305 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback form </title>
+    <style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#020617,#0F172A,#172554,#312E81);
+}
+
+.class1{
+    width:450px;
+    background:rgba(15,23,42,0.75);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.6);
+}
+
+h1{
+    color:#FFFFFF;
+    margin-bottom:25px;
+    text-align:center;
+}
+
+input,
+textarea{
+    width:100%;
+    padding:13px 15px;
+    background:#1E293B;
+    color:#F8FAFC;
+    border:1px solid #334155;
+    border-radius:12px;
+    outline:none;
+    font-size:16px;
+    transition:0.3s;
+}
+
+input::placeholder,
+textarea::placeholder{
+    color:#94A3B8;
+}
+
+input:focus,
+textarea:focus{
+    border-color:#3B82F6;
+    box-shadow:0 0 12px rgba(59,130,246,.6);
+}
+
+textarea{
+    height:120px;
+    resize:none;
+}
+
+.btn{
+    width:100%;
+    padding:14px;
+    margin-top:10px;
+    border:none;
+    border-radius:30px;
+    font-size:18px;
+    font-weight:bold;
+    color:white;
+    cursor:pointer;
+    background:linear-gradient(135deg,#2563EB,#7C3AED);
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 25px rgba(59,130,246,.35);
+}
+
+.btn:active{
+    transform:scale(.98);
+}
+
+h3{
+    color:#F8FAFC;
+    margin-top:20px;
+}
+
+#output{
+    margin-top:10px;
+    padding:15px;
+    background:#111827;
+    color:#E2E8F0;
+    border:1px solid #374151;
+    border-radius:12px;
+    text-align:left;
+    white-space:pre-wrap;
+    overflow-x:auto;
+}
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#475569;
+    border-radius:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#0F172A;
+}
+</style>
+        
+ 
+    
+</head>
+<body>
+    <br>
+    <main align = "center">
+        <div  class="class1">
+        <h1 align = "center"  font color = "red"><b>FastAPI Feedback Form</b></h1>
+
+        <input type = text  id = "studentName" placeholder="Student Name"><br><br>
+        <input type = text  id = "topic" placeholder="Topic"><br><br>
+        <input type = number min="0" max="5" step="1" id = "rating" placeholder="Rating 1 to 5"><br><br>
+        <textarea name="Comment" id="comment" placeholder="Comment..."></textarea><br><br>
+
+        <button class="btn" onclick="submitFeedback()">Submit Feedback</button><br><br>
+        <h3  id = "res">Response</font></h3>
+        <pre id="output"></pre>
+        </div>
+    </main>
+    <script>
+    async function submitFeedback() {
+      const feedbackData = {
+        student_name: document.getElementById("studentName").value,
+        topic: document.getElementById("topic").value,
+        rating: Number(document.getElementById("rating").value),
+        comment: document.getElementById("comment").value
+      };
+
+      try {
+        //await fetch(): The await keyword pauses the function until the fetch() request is complete, 
+        //so the data can be used right after it’s retrieved.
+        const response = await fetch("http://127.0.0.1:8000/feedback", {          
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(feedbackData)
+        });
+        //If the response is successful, it converts the data from the server 
+        //(usually in JSON format) into a JavaScript object.
+        //If not successful, the control goes to catch block.
+        const result = await response.json();
+
+        document.getElementById("output").textContent =
+          "Status Code: " + response.status + "\n\n" +
+          JSON.stringify(result, null, 2);//the 2 adds 2-space indentation for readability
+
+      } catch (error) {
+        document.getElementById("output").textContent =
+          "Error: " + error.message;
+      }
+    }
+  </script>
+    
+    
+</body>
+</html>
+=======
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AskMyNotes</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body
+    class="bg-slate-950 min-h-screen flex flex-col items-center py-12 px-4 text-slate-100"
+  >
+    <div
+      class="w-full max-w-2xl bg-slate-900 p-8 rounded-2xl shadow-2xl border border-slate-800"
+    >
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-extrabold text-white mb-2">AskMyNotes</h1>
+
+        <p class="text-slate-400">
+          Chat with your PDF notes using AI-powered retrieval.
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-8">
+        <!-- Upload Section -->
+        <div class="space-y-3">
+          <label
+            for="pdf-input"
+            class="block text-sm font-medium text-slate-300"
+          >
+            Upload your notes (PDF)
+          </label>
+
+          <input
+            type="file"
+            id="pdf-input"
+            accept=".pdf"
+            class="block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-slate-800 file:text-slate-200 hover:file:bg-slate-700 transition cursor-pointer"
+          />
+
+          <!-- Upload Status -->
+          <div id="upload-status" class="text-xs text-slate-500 min-h-[20px]">
+            No file uploaded yet.
+          </div>
+        </div>
+
+        <!-- Question Section -->
+        <div class="space-y-3">
+          <label
+            for="question"
+            class="block text-sm font-medium text-slate-300"
+          >
+            Your question
+          </label>
+
+          <textarea
+            id="question"
+            rows="3"
+            placeholder="What do my notes say about..."
+            class="block w-full p-3 bg-slate-800 border border-slate-700 rounded-lg text-slate-100 placeholder-slate-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+          ></textarea>
+
+          <div class="flex items-center justify-between">
+            <div id="status" class="text-xs text-slate-500"></div>
+
+            <button
+              id="ask-btn"
+              class="bg-blue-600 text-white py-2 px-6 rounded-lg font-medium hover:bg-blue-700 transition shadow-lg active:scale-95"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+
+        <!-- Answer Section -->
+        <div class="space-y-3">
+          <label class="block text-sm font-medium text-slate-300">
+            Answer
+          </label>
+
+          <div id="meta" class="flex gap-2">
+            <span
+              id="type-pill"
+              class="px-2 py-1 rounded text-xs bg-slate-800 text-slate-300 hidden"
+            >
+            </span>
+
+            <span
+              id="tool-pill"
+              class="px-2 py-1 rounded text-xs bg-slate-800 text-slate-300 hidden"
+            >
+            </span>
+          </div>
+
+          <div
+            id="answer"
+            class="p-4 bg-slate-800/50 border border-slate-700 rounded-lg min-h-[100px] text-slate-300 italic"
+          >
+            <div id="answer-text">Your answer will appear here...</div>
+          </div>
+
+          <details id="sources-wrap" class="hidden mt-4 text-sm text-slate-400">
+            <summary class="cursor-pointer hover:text-white transition">
+              Sources (top chunks used)
+            </summary>
+
+            <ol id="sources" class="list-decimal pl-6 mt-2 space-y-2"></ol>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-8 text-slate-600 text-xs">
+      Built as part of the AI Engineering Bootcamp
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="./app.js"></script>
+  </body>
+</html>
+>>>>>>> dc445d3b9fe19e1d8d2debbdd59027243003a25d
